@@ -11,8 +11,6 @@ import {Settings} from './components/Settings/Settings';
 import {DialogsActionsTypes} from "./redux/dialogs-reducer";
 import {ProfileActionsTypes} from "./redux/profile-reducer";
 import {AppStateType} from "./redux/redux-store";
-// import {StoreType} from "./redux/redux-store";
-// import {RootStateType, ActionsTypes} from "./redux/state";
 
 type PropsType = {
     state: AppStateType

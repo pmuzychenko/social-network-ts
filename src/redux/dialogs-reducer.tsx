@@ -1,6 +1,4 @@
 import {v1} from "uuid";
-// import {addPostAC, changeNewPostTextAC} from "./profile-reducer";
-// import {ActionsTypes} from "./state";
 
 export const addMessageAC = () => {
     return {
