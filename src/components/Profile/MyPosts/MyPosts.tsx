@@ -1,6 +1,8 @@
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
 import styles from "./MyPosts.module.css";
+import {changeNewPostTextAC, addPostAC, ProfileActionsTypes} from "../../../redux/profile-reducer";
+import {DialogsActionsTypes} from "../../../redux/dialogs-reducer";
 
 type PostsType = {
     id: string
@@ -19,11 +21,13 @@ type PropsType = {
 export const MyPosts: React.FC<PropsType> = (props) => {
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        //props.dispatch( changeNewPostTextAC(e.currentTarget.value))
         let text = e.currentTarget.value
         props.updateNewPostText(text)
     }
 
     let onAddPost = () => {
+        // props.dispatch(addPostAC())
         props.addNewPost()
     }
 
