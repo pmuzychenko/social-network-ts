@@ -1,5 +1,6 @@
-import {ActionsTypes, RootStateType, DialogType, DialogsPageType} from "./state";
 import {v1} from "uuid";
+// import {addPostAC, changeNewPostTextAC} from "./profile-reducer";
+// import {ActionsTypes} from "./state";
 
 export const addMessageAC = () => {
     return {
@@ -13,18 +14,60 @@ export const changeNewMessageAC = (newMessageText: string) => {
     } as const
 }
 
-export const dialogsReducer = (state: DialogsPageType, action: ActionsTypes) => {
+export type DialogsActionsTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof changeNewMessageAC>
+
+type MessageType = {
+    id: string
+    message: string
+}
+
+type DialogType = {
+    name: string
+    id: string
+}
+
+type InitialStateType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newDialogMessage: string
+}
+
+let initialState: InitialStateType = {
+    dialogs: [
+        {id: v1(), name: 'Dimych'},
+        {id: v1(), name: 'Andrew'},
+        {id: v1(), name: 'Sveta'},
+        {id: v1(), name: 'Sasha'},
+        {id: v1(), name: 'Victor'},
+        {id: v1(), name: 'Valera'}
+    ],
+    newDialogMessage: '',
+    messages: [
+        {id: v1(), message: 'Hi,Dimych!'},
+        {id: v1(), message: 'Glad to see you, Andrew!'},
+        {id: v1(), message: 'Sveta, do you want to chat?'},
+        {id: v1(), message: 'Sasha, are you free now?'},
+        {id: v1(), message: 'Victor, good joke'},
+        {id: v1(), message: 'Valera, thanks a lot for your help!'}
+    ]
+}
+
+export const dialogsReducer = (state: InitialStateType = initialState, action: DialogsActionsTypes): InitialStateType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             let newMessage = {
                 id: v1(), message: state.newDialogMessage
             }
-            state.messages.push(newMessage)
-            state.newDialogMessage = ''
-          return state
+          return {
+                ...state,
+              messages: [...state.messages, newMessage],
+              newDialogMessage: ''
+          }
         case 'CHANGE-NEW-MESSAGE-TEXT':
-            state.newDialogMessage = action.newMessageText
-          return state
+            return {
+                ...state,
+                newDialogMessage: action.newMessageText
+            }
         default:
             return state
     }

@@ -53,9 +53,8 @@ export type StoreType = {
 
 }
 
-export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewPostTextAC> |
+type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewPostTextAC> |
     ReturnType<typeof addMessageAC> | ReturnType<typeof changeNewMessageAC>
-
 
 
 export const store: StoreType = {
@@ -99,8 +98,7 @@ export const store: StoreType = {
     getState() {
         return this._state
     },
-    dispatch(action) {
-
+    dispatch(action: any ) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)

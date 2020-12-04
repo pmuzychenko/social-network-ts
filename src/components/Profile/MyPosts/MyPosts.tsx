@@ -1,8 +1,9 @@
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
 import styles from "./MyPosts.module.css";
-import {ActionsTypes} from "../../../redux/state";
-import { changeNewPostTextAC, addPostAC } from "../../../redux/profile-reducer";
+// import {ActionsTypes} from "../../../redux/state";
+import {changeNewPostTextAC, addPostAC, ProfileActionsTypes} from "../../../redux/profile-reducer";
+import {DialogsActionsTypes} from "../../../redux/dialogs-reducer";
 
 type PostsType = {
     id: string
@@ -13,7 +14,8 @@ type PostsType = {
 type PropsType = {
     messageForNewPost: string
     posts: Array<PostsType>
-    dispatch: (action: ActionsTypes) => void
+    // dispatch: (action: ActionsTypes) => void
+    dispatch: (action: DialogsActionsTypes | ProfileActionsTypes) => void
 }
 
 

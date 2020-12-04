@@ -1,5 +1,5 @@
-import {ActionsTypes, PostType, ProfilePageType, RootStateType} from "./state";
 import {v1} from "uuid";
+// import {ActionsTypes} from "./state";
 
 export const addPostAC = () => {
     return {
@@ -14,7 +14,28 @@ export const changeNewPostTextAC = (newPostText: string) => {
     } as const
 }
 
-export const profileReducer = (state: ProfilePageType, action: ActionsTypes) => {
+export type ProfileActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewPostTextAC>
+
+type PostType = {
+    id: string
+    message: string
+    likesCount: number
+}
+
+type InitialStateType = {
+    messageForNewPost: string
+    posts: Array<PostType>
+}
+
+let initialState: InitialStateType = {
+    messageForNewPost: '',
+    posts: [
+        {id: v1(), message: 'Hi, how are you?', likesCount: 15},
+        {id: v1(), message: "It's my new post", likesCount: 20}
+    ]
+}
+
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsTypes):InitialStateType => {
     switch (action.type) {
         case 'ADD-POST':
             let newPost: PostType = {
@@ -22,12 +43,16 @@ export const profileReducer = (state: ProfilePageType, action: ActionsTypes) => 
                 message: state.messageForNewPost,
                 likesCount: 0
             }
-            state.posts.push(newPost)
-            state.messageForNewPost = ''
-            return state;
+            return {
+                ...state,
+                posts: [...state.posts,newPost],
+                messageForNewPost: ''
+            }
         case 'CHANGE-NEW-POST-TEXT':
-            state.messageForNewPost = action.newPostText
-            return state
+            return {
+                ...state,
+                messageForNewPost: action.newPostText
+            }
         default:
             return state
     }

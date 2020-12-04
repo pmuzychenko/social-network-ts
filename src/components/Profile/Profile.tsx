@@ -1,7 +1,9 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionsTypes} from "../../redux/state";
+// import {ActionsTypes} from "../../redux/state";
+import {DialogsActionsTypes} from "../../redux/dialogs-reducer";
+import {ProfileActionsTypes} from "../../redux/profile-reducer";
 
 
 type PostsType = {
@@ -13,7 +15,8 @@ type PostsType = {
 type PropsType = {
     messageForNewPost: string
     posts: Array<PostsType>
-    dispatch: (action: ActionsTypes) => void
+    // dispatch: (action: ActionsTypes) => void
+    dispatch: (action: DialogsActionsTypes | ProfileActionsTypes) => void
 }
 
 

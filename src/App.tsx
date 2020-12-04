@@ -8,16 +8,21 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from './components/Settings/Settings';
-import {RootStateType, ActionsTypes} from "./redux/state";
+import {DialogsActionsTypes} from "./redux/dialogs-reducer";
+import {ProfileActionsTypes} from "./redux/profile-reducer";
+import {AppStateType} from "./redux/redux-store";
+// import {StoreType} from "./redux/redux-store";
+// import {RootStateType, ActionsTypes} from "./redux/state";
 
 type PropsType = {
-    state: RootStateType
-    dispatch: (action: ActionsTypes) => void
+    state: AppStateType
+    dispatch: (action: DialogsActionsTypes | ProfileActionsTypes) => void
 }
+
 
 const App: React.FC<PropsType> = (props) => {
 
-    let sidebar = props.state.sidebar.items
+    let sidebar = props.state.sideBar.items
     let posts = props.state.profilePage.posts
     let dialogs = props.state.dialogsPage.dialogs
     let messages = props.state.dialogsPage.messages

@@ -1,8 +1,9 @@
 import React, {ChangeEvent} from "react";
 import styles from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
-import {ActionsTypes} from "../../redux/state";
-import {addMessageAC, changeNewMessageAC} from "../../redux/dialogs-reducer";
+
+import {addMessageAC, changeNewMessageAC, DialogsActionsTypes} from "../../redux/dialogs-reducer";
+import {ProfileActionsTypes} from "../../redux/profile-reducer";
 
 
 type DialogPropsType = {
@@ -35,7 +36,7 @@ const Message: React.FC<MessagePropsType> = (props) => {
 type DialogsPagePropsType = {
     dialogs: Array<DialogPropsType>
     messages: Array<MessagePropsType>
-    dispatch: (action: ActionsTypes) => void
+    dispatch: (action: DialogsActionsTypes | ProfileActionsTypes) => void
     newDialogMessage: string
 
 }
