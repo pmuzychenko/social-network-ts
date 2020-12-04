@@ -2,9 +2,6 @@ import React, {ChangeEvent} from "react";
 import styles from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 
-import {addMessageAC, changeNewMessageAC, DialogsActionsTypes} from "../../redux/dialogs-reducer";
-import {ProfileActionsTypes} from "../../redux/profile-reducer";
-
 
 type DialogPropsType = {
     name: string
@@ -36,31 +33,32 @@ const Message: React.FC<MessagePropsType> = (props) => {
 type DialogsPagePropsType = {
     dialogs: Array<DialogPropsType>
     messages: Array<MessagePropsType>
-    dispatch: (action: DialogsActionsTypes | ProfileActionsTypes) => void
     newDialogMessage: string
+    addMessage: () => void
+    changeMessage: (message: string) => void
 
 }
 
 
 export const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
 
-    let DialogsElements = props.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>)
+    let dialogsElements = props.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>)
 
     let messagesElements = props.messages.map(msg => <Message key={msg.id} message={msg.message} id={msg.id}/>)
 
-    const addMessageHandler = () => {
-        props.dispatch(addMessageAC())
+    const onAddMessage = () => {
+        props.addMessage()
     }
 
     const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeNewMessageAC(e.currentTarget.value))
+        props.changeMessage(e.currentTarget.value)
     }
 
 
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogsItems}>
-                {DialogsElements}
+                {dialogsElements}
             </div>
             <div className={styles.messages}>
                 {messagesElements}
@@ -69,7 +67,7 @@ export const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
                 <textarea value={props.newDialogMessage} onChange={onChangeMessage}></textarea>
             </div>
             <div>
-                <button onClick={addMessageHandler}>Add message</button>
+                <button onClick={onAddMessage}>Add message</button>
             </div>
         </div>
     )

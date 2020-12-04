@@ -3,17 +3,11 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {DialogsActionsTypes} from "../../redux/dialogs-reducer";
 import {ProfileActionsTypes} from "../../redux/profile-reducer";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {AppStateType} from "../../redux/redux-store";
 
-
-type PostsType = {
-    id: string
-    message: string
-    likesCount: number
-}
 
 type PropsType = {
-    messageForNewPost: string
-    posts: Array<PostsType>
+    state: AppStateType
     dispatch: (action: DialogsActionsTypes | ProfileActionsTypes) => void
 }
 
@@ -22,9 +16,7 @@ export const Profile: React.FC<PropsType> = (props) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer posts={props.posts}
-                              dispatch={props.dispatch}
-                              messageForNewPost={props.messageForNewPost} />
+            <MyPostsContainer state={props.state} dispatch={props.dispatch}/>
         </div>
     )
 }

@@ -11,6 +11,7 @@ import {Settings} from './components/Settings/Settings';
 import {DialogsActionsTypes} from "./redux/dialogs-reducer";
 import {ProfileActionsTypes} from "./redux/profile-reducer";
 import {AppStateType} from "./redux/redux-store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type PropsType = {
     state: AppStateType
@@ -21,9 +22,8 @@ type PropsType = {
 const App: React.FC<PropsType> = (props) => {
 
     let sidebar = props.state.sideBar.items
-    let posts = props.state.profilePage.posts
-    let dialogs = props.state.dialogsPage.dialogs
-    let messages = props.state.dialogsPage.messages
+    // let dialogs = props.state.dialogsPage.dialogs
+   // let messages = props.state.dialogsPage.messages
 
     return (
         <BrowserRouter>
@@ -32,16 +32,21 @@ const App: React.FC<PropsType> = (props) => {
                 <Navbar items={sidebar}/>
                 <div className='app-wrapper-content'>
                     <Route path='/profile' render={() =>
-                        <Profile posts={posts}
+                        <Profile state={props.state}
                                  dispatch={props.dispatch}
-                                 messageForNewPost={props.state.profilePage.messageForNewPost}
                         />}/>
                     <Route path='/dialogs' render={() =>
-                        <Dialogs dialogs={dialogs} messages={messages}
-                                 dispatch={props.dispatch}
-                                 newDialogMessage={props.state.dialogsPage.newDialogMessage}
+                        // <Dialogs dialogs={dialogs} messages={messages}
+                        //          dispatch={props.dispatch}
+                        //          newDialogMessage={props.state.dialogsPage.newDialogMessage}
+                        //
+                        // />}/>
+                    <DialogsContainer state={props.state}
+                             dispatch={props.dispatch}
+                             // newDialogMessage={props.state.dialogsPage.newDialogMessage}
 
-                        />}/>
+                    />}/>
+
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
