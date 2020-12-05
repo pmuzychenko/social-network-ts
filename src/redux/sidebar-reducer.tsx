@@ -1,5 +1,4 @@
 
-
 type InitialStateType = {
     items: Array<string>
 }

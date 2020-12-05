@@ -1,38 +1,31 @@
 import React from "react";
-
-
-import {addMessageAC, changeNewMessageAC, DialogsActionsTypes} from "../../redux/dialogs-reducer";
-import {AppStateType} from "../../redux/redux-store";
-import {ProfileActionsTypes} from "../../redux/profile-reducer";
+import {addMessageAC, changeNewMessageAC} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
+import StoreContext from "../../StoreContext";
 
 
-type PropsType = {
-    state: AppStateType
-    dispatch: (action: DialogsActionsTypes | ProfileActionsTypes) => void
-}
-
-
-export const DialogsContainer: React.FC<PropsType> = (props) => {
-    let dialogs = props.state.dialogsPage.dialogs
-    let messages = props.state.dialogsPage.messages
-    let newDialogMessage = props.state.dialogsPage.newDialogMessage
-
-    const addMessage = () => {
-        props.dispatch(addMessageAC())
-    }
-
-    const changeMessage = (message: string) => {
-        props.dispatch(changeNewMessageAC(message))
-    }
-
+export const DialogsContainer = () => {
 
     return (
-       <Dialogs addMessage={addMessage}
-                changeMessage={changeMessage}
-                dialogs={dialogs}
-                messages={messages}
-                newDialogMessage={newDialogMessage}
-       />
+        <StoreContext.Consumer>
+            {reduxStore => {
+                let dialogs = reduxStore.getState().dialogsPage.dialogs
+                let messages = reduxStore.getState().dialogsPage.messages
+                let newDialogMessage = reduxStore.getState().dialogsPage.newDialogMessage
+                const addMessage = () => {
+                    reduxStore.dispatch(addMessageAC())
+                }
+
+                const changeMessage = (message: string) => {
+                    reduxStore.dispatch(changeNewMessageAC(message))
+                }
+                return <Dialogs addMessage={addMessage}
+                                changeMessage={changeMessage}
+                                dialogs={dialogs}
+                                messages={messages}
+                                newDialogMessage={newDialogMessage}
+                />
+            }}
+        </StoreContext.Consumer>
     )
 }

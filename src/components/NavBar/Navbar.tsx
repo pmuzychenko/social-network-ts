@@ -3,29 +3,24 @@ import styles from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
 
 
-type PropsType = {
-    items: Array<string>
-}
-
-
-export const Navbar: React.FC<PropsType> = (props) => {
+export const Navbar = () => {
     return (
         <nav className={styles.nav}>
 
             <div className={styles.item}>
-                <NavLink to='/profile' activeClassName={styles.activeLink}>{props.items[0]}</NavLink>
+                <NavLink to='/profile' activeClassName={styles.activeLink}>Profile</NavLink>
             </div>
             <div className={styles.item}>
-                <NavLink to='/dialogs' activeClassName={styles.activeLink}>{props.items[1]}</NavLink>
+                <NavLink to='/dialogs' activeClassName={styles.activeLink}>Messages</NavLink>
             </div>
             <div className={styles.item}>
-                <NavLink to='/news' activeClassName={styles.activeLink}>{props.items[2]}</NavLink>
+                <NavLink to='/news' activeClassName={styles.activeLink}>News</NavLink>
             </div>
             <div className={styles.item}>
-                <NavLink to='/music' activeClassName={styles.activeLink}>{props.items[3]}</NavLink>
+                <NavLink to='/music' activeClassName={styles.activeLink}>Music</NavLink>
             </div>
             <div className={styles.item}>
-                <NavLink to='/settings' activeClassName={styles.activeLink}>{props.items[4]}</NavLink>
+                <NavLink to='/settings' activeClassName={styles.activeLink}>Settings</NavLink>
             </div>
         </nav>
     )

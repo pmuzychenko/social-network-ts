@@ -3,23 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {AppStateType, reduxStore} from "./redux/redux-store";
+import {reduxStore} from "./redux/redux-store";
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "./StoreContext";
 
 
-
-
-const renderEntireTree = (state: AppStateType) => {
+const renderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state} dispatch={reduxStore.dispatch.bind(reduxStore)}/>
+            <BrowserRouter>
+                <Provider store={reduxStore}>
+                    <App/>
+                </Provider>
+            </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
 
-renderEntireTree(reduxStore.getState());
+renderEntireTree();
 
-reduxStore.subscribe(() => renderEntireTree(reduxStore.getState()));
+reduxStore.subscribe(() => renderEntireTree());
 
 
 serviceWorker.unregister();
