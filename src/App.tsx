@@ -10,7 +10,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from './components/Settings/Settings';
 import {DialogsActionsTypes} from "./redux/dialogs-reducer";
 import {ProfileActionsTypes} from "./redux/profile-reducer";
-import {AppStateType} from "./redux/redux-store";
+import {AppStateType, StoreType} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type PropsType = {

@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from "react";
-import styles from "./Dialogs.module.css";
+import React from "react";
+
 
 import {addMessageAC, changeNewMessageAC, DialogsActionsTypes} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/redux-store";
