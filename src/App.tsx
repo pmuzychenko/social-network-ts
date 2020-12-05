@@ -22,8 +22,6 @@ type PropsType = {
 const App: React.FC<PropsType> = (props) => {
 
     let sidebar = props.state.sideBar.items
-    // let dialogs = props.state.dialogsPage.dialogs
-   // let messages = props.state.dialogsPage.messages
 
     return (
         <BrowserRouter>
@@ -36,16 +34,9 @@ const App: React.FC<PropsType> = (props) => {
                                  dispatch={props.dispatch}
                         />}/>
                     <Route path='/dialogs' render={() =>
-                        // <Dialogs dialogs={dialogs} messages={messages}
-                        //          dispatch={props.dispatch}
-                        //          newDialogMessage={props.state.dialogsPage.newDialogMessage}
-                        //
-                        // />}/>
-                    <DialogsContainer state={props.state}
-                             dispatch={props.dispatch}
-                             // newDialogMessage={props.state.dialogsPage.newDialogMessage}
-
-                    />}/>
+                        <DialogsContainer state={props.state}
+                                          dispatch={props.dispatch}
+                        />}/>
 
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>
