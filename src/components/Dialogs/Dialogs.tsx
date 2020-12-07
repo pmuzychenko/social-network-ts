@@ -71,7 +71,7 @@ export const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
                 <div className={styles.addMessageContainer}>
                     <textarea className={styles.textarea} value={props.newDialogMessage}
                               onChange={onChangeMessage}
-                        placeholder={"Enter your message..."}>
+                              placeholder={"Enter your message..."}>
                     </textarea>
                 </div>
                 <div>
