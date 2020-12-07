@@ -1,24 +1,19 @@
 import React from 'react';
-import {Friend} from "./Friend/Friend";
-import styles from './Friends.module.css'
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
+import {Friends} from "./Friends";
 
-export const FriendsContainer= () => {
 
-    return (
-        <StoreContext.Consumer>
-            {reduxStore => {
-                let friends = reduxStore.getState().sideBar.map(friend => {
-                    return <Friend id={friend.id} src={friend.src} name={friend.name}/>
-                })
 
-                return <div className={styles.wrapper}>
-                    <h2>Friends</h2>
-                    <div>
-                        {friends}
-                    </div>
-                </div>
-            }}
-        </StoreContext.Consumer>
-    )
+let mapStateToProps = (state: AppStateType) => {
+    return {
+        friends: state.sideBar
+    }
 }
+let MapDispatchToProps = (dispatch: any) => {
+    return {
+    }
+}
+export const FriendsContainer = connect(mapStateToProps, MapDispatchToProps)(Friends)
+
+
