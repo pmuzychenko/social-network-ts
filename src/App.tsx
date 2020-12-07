@@ -15,9 +15,7 @@ const App = () => {
     return (
         <div className='app-wrapper'>
             <Header/>
-            {/*<Navbar items={sidebar}/>*/}
             <Navbar/>
-
             <div className='app-wrapper-content'>
                 <Route path='/profile' render={() =>
                     <Profile/>}/>

@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
+import {Friends} from "../Friends/Friends";
+import {reduxStore} from "../../redux/redux-store";
 
 
 export const Navbar = () => {
@@ -22,6 +24,7 @@ export const Navbar = () => {
             <div className={styles.item}>
                 <NavLink to='/settings' activeClassName={styles.activeLink}>Settings</NavLink>
             </div>
+            <Friends/>
         </nav>
     )
 }
