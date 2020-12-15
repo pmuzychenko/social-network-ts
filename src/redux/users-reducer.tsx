@@ -1,17 +1,23 @@
 import {v1} from "uuid";
 
 
-type LocationType = {
-    city: string
-    country: string
+// type LocationType = {
+//     city: string
+//     country: string
+// }
+
+type PhotoType = {
+    small: string
+    large: string
 }
 
-type UserType = {
-    id: string
+export type UserType = {
+    id: number
+    photos: PhotoType
     followed: boolean
-    fullName: string
+    name: string
     status: string
-    location: LocationType
+  //  location: LocationType
 
 }
 
@@ -20,27 +26,63 @@ type InitialStateType = {
 }
 
 let initialState: InitialStateType = {
-    users: [] as Array<UserType>
-        // {id: v1(), followed: false, fullName: 'Dmitriy', status: "I'm a boss", location: {city: 'Minsk', country: 'Belarus'}},
-        // {id: v1(), followed: false, fullName: 'Andrew', status: "I'm a boss", location: {city: 'Minsk', country: 'Belarus'}},
-        // {id: v1(), followed: false, fullName: 'Sergey', status: "I'm a boss", location: {city: 'Moscow', country: 'Russia'}},
-        // {id: v1(), followed: true, fullName: 'Sasha', status: "I'm a boss", location: {city: 'Kiev', country: 'Ukraine'}}
+    users: [
+        // {
+        //     id: v1(),
+        //     photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
+        //     followed: false,
+        //     fullName: 'Dmitriy',
+        //     status: "I'm a boss",
+        //     location:
+        //         {
+        //             city: 'Minsk',
+        //             country: 'Belarus'
+        //         }
+        // },
+        // {
+        //     id: v1(),
+        //     photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
+        //     followed: false,
+        //     fullName: 'Andrew',
+        //     status: "I'm a boss",
+        //     location: {city: 'Minsk', country: 'Belarus'}
+        // },
+        // {
+        //     id: v1(),
+        //     photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
+        //     followed: false,
+        //     fullName: 'Sergey',
+        //     status: "I'm a boss",
+        //     location: {city: 'Moscow', country: 'Russia'}
+        // },
+        // {
+        //     id: v1(),
+        //     photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
+        //     followed: false,
+        //     fullName: 'Sasha',
+        //     status: "I'm a boss",
+        //     location: {city: 'Kiev', country: 'Ukraine'}
+        // }
+    ] as Array<UserType>
 }
-export type UsersActionsTypes = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC>
+export type UsersActionsTypes =
+    ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUsersAC>
 
-const followAC = (userId: string) => {
+export const followAC = (userId: number) => {
     return {
         type: 'FOLLOW',
         userId
     } as const
 }
-const unFollowAC = (userId: string) => {
+export const unfollowAC = (userId: number) => {
     return {
         type: 'UNFOLLOW',
         userId
     } as const
 }
-const setUsersAC = (users: Array<UserType>) => {
+export const setUsersAC = (users: Array<UserType>) => {
     return {
         type: 'SET_USERS',
         users
