@@ -13,64 +13,30 @@ type UsersPropsType = {
     users: Array<UserType>
 }
 
-export const Users: React.FC<UsersPropsType> = (props) => {
-    if (props.users.length === 0) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            props.setUsers(response.data.items);
-        })
-        // props.setUsers([
-        //     {
-        //         id: v1(),
-        //         photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
-        //         followed: false,
-        //         fullName: 'Dmitriy',
-        //         status: "I'm a boss",
-        //         location:
-        //             {
-        //                 city: 'Minsk',
-        //                 country: 'Belarus'
-        //             }
-        //     },
-        //     {
-        //         id: v1(),
-        //         photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
-        //         followed: false,
-        //         fullName: 'Andrew',
-        //         status: "I'm a boss",
-        //         location: {city: 'Minsk', country: 'Belarus'}
-        //     },
-        //     {
-        //         id: v1(),
-        //         photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
-        //         followed: false,
-        //         fullName: 'Sergey',
-        //         status: "I'm a boss",
-        //         location: {city: 'Moscow', country: 'Russia'}
-        //     },
-        //     {
-        //         id: v1(),
-        //         photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
-        //         followed: false,
-        //         fullName: 'Sasha',
-        //         status: "I'm a boss",
-        //         location: {city: 'Kiev', country: 'Ukraine'}
-        //     }
-        // ])
+export class Users extends React.Component<UsersPropsType>{
+    getUsers = () => {
+        if (this.props.users.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+                this.props.setUsers(response.data.items);
+            })
+        }
     }
 
-    return <div>
-        {
-            props.users.map(user => <div key={user.id}>
+    render() {
+        return <div>
+            <button onClick={this.getUsers}>Get users</button>
+            {
+                this.props.users.map(user => <div key={user.id}>
                 <span>
                     <div className={styles.userPhoto}>
                         <img src={user.photos.small !== null ? user.photos.small : userPhoto}/>
                     </div>
                     <div>
-                        {user.followed ?  <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
-                            :  <button onClick={() => props.follow(user.id)}>Follow</button>}
+                        {user.followed ?  <button onClick={() => this.props.unfollow(user.id)}>Unfollow</button>
+                            :  <button onClick={() => this.props.follow(user.id)}>Follow</button>}
                     </div>
                 </span>
-                <span>
+                    <span>
                     <span>
                         <div>{user.name}</div>
                         <div>{user.status}</div>
@@ -80,7 +46,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                         <div>{'user.location.city'}</div>
                     </span>
                 </span>
-            </div>)
-        }
-    </div>
+                </div>)
+            }
+        </div>
+    }
 }
