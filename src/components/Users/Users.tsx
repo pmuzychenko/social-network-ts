@@ -1,10 +1,8 @@
 import React from "react";
 import {UserType} from "../../redux/users-reducer";
 import styles from "./Users.module.css"
-import {v1} from "uuid";
 import axios from "axios";
 import userPhoto from "../../assets/images/user.png"
-import {log} from "util";
 
 type UsersPropsType = {
     follow: (id: number) => void
@@ -14,17 +12,15 @@ type UsersPropsType = {
 }
 
 export class Users extends React.Component<UsersPropsType>{
-    getUsers = () => {
-        if (this.props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items);
-            })
-        }
+    constructor(props: UsersPropsType) {
+        super(props);
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.setUsers(response.data.items);
+        })
     }
 
     render() {
         return <div>
-            <button onClick={this.getUsers}>Get users</button>
             {
                 this.props.users.map(user => <div key={user.id}>
                 <span>
