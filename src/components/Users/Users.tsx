@@ -25,7 +25,7 @@ export class Users extends React.Component<UsersPropsType>{
                 this.props.users.map(user => <div key={user.id}>
                 <span>
                     <div className={styles.userPhoto}>
-                        <img src={user.photos.small !== null ? user.photos.small : userPhoto}/>
+                        <img src={user.photos.small !== null ? user.photos.small : userPhoto} alt={'avatar'}/>
                     </div>
                     <div>
                         {user.followed ?  <button onClick={() => this.props.unfollow(user.id)}>Unfollow</button>
