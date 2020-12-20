@@ -1,10 +1,3 @@
-import {v1} from "uuid";
-
-
-// type LocationType = {
-//     city: string
-//     country: string
-// }
 
 type PhotoType = {
     small: string
@@ -17,7 +10,6 @@ export type UserType = {
     followed: boolean
     name: string
     status: string
-    //  location: LocationType
 
 }
 
@@ -39,7 +31,7 @@ export type UsersActionsTypes =
     ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setСurrentPageAC>
+    | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
 
 export const followAC = (userId: number) => {
@@ -60,7 +52,7 @@ export const setUsersAC = (users: Array<UserType>) => {
         users
     } as const
 }
-export const setСurrentPageAC = (currentPage: number) => {
+export const setCurrentPageAC = (currentPage: number) => {
     return {
         type: 'SET_CURRENT_PAGE',
         currentPage
