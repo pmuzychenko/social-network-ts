@@ -17,58 +17,30 @@ export type UserType = {
     followed: boolean
     name: string
     status: string
-  //  location: LocationType
+    //  location: LocationType
 
 }
 
 type InitialStateType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 let initialState: InitialStateType = {
-    users: [
-        // {
-        //     id: v1(),
-        //     photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
-        //     followed: false,
-        //     fullName: 'Dmitriy',
-        //     status: "I'm a boss",
-        //     location:
-        //         {
-        //             city: 'Minsk',
-        //             country: 'Belarus'
-        //         }
-        // },
-        // {
-        //     id: v1(),
-        //     photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
-        //     followed: false,
-        //     fullName: 'Andrew',
-        //     status: "I'm a boss",
-        //     location: {city: 'Minsk', country: 'Belarus'}
-        // },
-        // {
-        //     id: v1(),
-        //     photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
-        //     followed: false,
-        //     fullName: 'Sergey',
-        //     status: "I'm a boss",
-        //     location: {city: 'Moscow', country: 'Russia'}
-        // },
-        // {
-        //     id: v1(),
-        //     photoUrl: 'https://superkarate.ru/uploads/posts/2017-12/1512292923_zhorzh.jpeg',
-        //     followed: false,
-        //     fullName: 'Sasha',
-        //     status: "I'm a boss",
-        //     location: {city: 'Kiev', country: 'Ukraine'}
-        // }
-    ] as Array<UserType>
+    users: [] as Array<UserType>,
+    pageSize: 50,
+    totalUsersCount: 0,
+    currentPage: 1
+
 }
 export type UsersActionsTypes =
     ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setСurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 export const followAC = (userId: number) => {
     return {
@@ -88,6 +60,19 @@ export const setUsersAC = (users: Array<UserType>) => {
         users
     } as const
 }
+export const setСurrentPageAC = (currentPage: number) => {
+    return {
+        type: 'SET_CURRENT_PAGE',
+        currentPage
+    } as const
+}
+export const setTotalUsersCountAC = (totalUsersCount: number) => {
+    return {
+        type: 'SET_TOTAL_USERS_COUNT',
+        totalUsersCount
+    } as const
+}
+
 
 export const usersReducer = (state: InitialStateType = initialState, action: UsersActionsTypes): InitialStateType => {
     switch (action.type) {
@@ -114,8 +99,19 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
         case 'SET_USERS':
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
             }
+        case 'SET_CURRENT_PAGE':
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        case 'SET_TOTAL_USERS_COUNT':
+            return {
+                ...state,
+                totalUsersCount: action.totalUsersCount
+            }
+
         default:
             return state
     }
