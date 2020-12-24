@@ -1,4 +1,3 @@
-
 type PhotoType = {
     small: string
     large: string
@@ -18,13 +17,15 @@ type InitialStateType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 let initialState: InitialStateType = {
     users: [] as Array<UserType>,
     pageSize: 50,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 
 }
 export type UsersActionsTypes =
@@ -33,6 +34,7 @@ export type UsersActionsTypes =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof toogleIsFetchingAC>
 
 export const followAC = (userId: number) => {
     return {
@@ -64,11 +66,17 @@ export const setTotalUsersCountAC = (totalUsersCount: number) => {
         totalUsersCount
     } as const
 }
+export const toogleIsFetchingAC = (isFetching: boolean) => {
+    return {
+        type: 'TOOGLE_IS_FETCHING',
+        isFetching
+    } as const
+}
 
 
 export const usersReducer = (state: InitialStateType = initialState, action: UsersActionsTypes): InitialStateType => {
     switch (action.type) {
-        case 'FOLLOW':
+        case 'FOLLOW': {
             return {
                 ...state,
                 users: state.users.map(user => {
@@ -78,7 +86,9 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
                     return user
                 })
             }
-        case 'UNFOLLOW':
+        }
+
+        case 'UNFOLLOW': {
             return {
                 ...state,
                 users: state.users.map(user => {
@@ -88,22 +98,35 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
                     return user
                 })
             }
-        case 'SET_USERS':
+        }
+
+        case 'SET_USERS': {
             return {
                 ...state,
                 users: action.users
             }
-        case 'SET_CURRENT_PAGE':
+        }
+
+        case 'SET_CURRENT_PAGE': {
             return {
                 ...state,
                 currentPage: action.currentPage
             }
-        case 'SET_TOTAL_USERS_COUNT':
+        }
+
+        case 'SET_TOTAL_USERS_COUNT': {
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount
             }
+        }
 
+        case 'TOOGLE_IS_FETCHING': {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
         default:
             return state
     }

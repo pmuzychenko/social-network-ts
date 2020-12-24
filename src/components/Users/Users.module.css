@@ -2,6 +2,10 @@
     width: 100px;
     height: 100px;
 }
+.userPreloader img {
+    width: 200px;
+    height: 112px;
+}
 
 .selectedPages {
     font-weight: bold;
