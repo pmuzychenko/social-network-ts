@@ -13,7 +13,16 @@ export const changeNewPostTextAC = (newPostText: string) => {
     } as const
 }
 
-export type ProfileActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewPostTextAC>
+export const setUserProfile = (profile: any) => {
+    return {
+        type: "SET-USER-PROFILE",
+        profile: profile
+    } as const
+}
+
+
+export type ProfileActionsTypes = ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewPostTextAC> | ReturnType<typeof setUserProfile>
 
 type PostType = {
     id: string
@@ -21,9 +30,33 @@ type PostType = {
     likesCount: number
 }
 
+export type ProfileType = {
+    aboutMe: string | null,
+    contacts: {
+        facebook: string | null,
+        website: string | null,
+        vk: string | null,
+        twitter: string | null,
+        instagram: string | null,
+        youtube: string | null,
+        github: string | null,
+        mainLink: string | null,
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: null | string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string | null,
+        large: string | null,
+    }
+}
+
+
 type InitialStateType = {
     messageForNewPost: string
     posts: Array<PostType>
+    profile: ProfileType | null
 }
 
 let initialState: InitialStateType = {
@@ -31,7 +64,8 @@ let initialState: InitialStateType = {
     posts: [
         {id: v1(), message: 'Hi, how are you?', likesCount: 15},
         {id: v1(), message: "It's my new post", likesCount: 20}
-    ]
+    ],
+    profile: null
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsTypes): InitialStateType => {
@@ -51,6 +85,11 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
             return {
                 ...state,
                 messageForNewPost: action.newPostText
+            }
+        case 'SET-USER-PROFILE':
+            return {
+                ...state,
+                profile: action.profile
             }
         default:
             return state
