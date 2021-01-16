@@ -10882,6 +10882,11 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
+with-router@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/with-router/-/with-router-1.0.1.tgz#1dc30d469c871d77561d080254d8b5356313349c"
+  integrity sha512-Jc/rG+uhJ9iqRWJjQAB9kKQiwk+L35p9OsXqDJU/n/BoFEsgEQLcXzYZ/MS4jsnXsjYs07C/hQhsSZSUir85NA==
+
 word-wrap@~1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
