@@ -12,7 +12,7 @@ export const Friends = (props: PropsType) => {
         <h2>Friends</h2>
         <div>
             {props.friends.map(friend => {
-            return  <Friend id={friend.id} src={friend.src} name={friend.name}/>
+            return  <Friend key={friend.id} id={friend.id} src={friend.src} name={friend.name}/>
         })}
         </div>
     </div>
