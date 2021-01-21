@@ -13,6 +13,8 @@ type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
     follow: (id: number) => void
     unfollow: (id: number) => void
+    followingInProgress: Array<number>
+    toogleFollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
 export const Users: React.FC<UsersPropsType> = (props) => {
@@ -23,17 +25,25 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     }
 
     const onUnfollowClickHandler = (id: number) => {
+        props.toogleFollowingProgress(true, id)
         usersAPI.unfollow(id)
             .then(resultCode => {
-                if (resultCode === 0) {  props.unfollow(id) }
+                if (resultCode === 0) {
+                    props.unfollow(id)
+                    props.toogleFollowingProgress(false, id)
+                }
             })
     }
 
     const onFollowClickHandler = (id: number) => {
-            usersAPI.follow(id)
-                .then(resultCode => {
-                    if (resultCode === 0) {  props.follow(id) }
-                })
+        props.toogleFollowingProgress(true, id)
+        usersAPI.follow(id)
+            .then(resultCode => {
+                if (resultCode === 0) {
+                    props.follow(id)
+                    props.toogleFollowingProgress(false, id)
+                }
+            })
     }
 
     return <div>
@@ -57,8 +67,12 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                     </div>
                     <div>
                         {user.followed
-                            ? <button onClick={() => {onUnfollowClickHandler(user.id)} }>Unfollow</button>
-                            : <button onClick={() => {onFollowClickHandler(user.id)} }>Follow</button>}
+                            ? <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                                onUnfollowClickHandler(user.id)
+                            }}>Unfollow</button>
+                            : <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                                onFollowClickHandler(user.id)
+                            }}>Follow</button>}
                     </div>
                 </span>
                 <span>
