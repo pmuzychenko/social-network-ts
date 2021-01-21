@@ -6,10 +6,9 @@ import {
     follow,
     unfollow, setUsers, setCurrentPage, setTotalUsersCount, toogleIsFetching
 } from "../../redux/users-reducer";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {getUsers} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     follow: (id: number) => void
@@ -29,19 +28,19 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.toogleIsFetching(true)
-            getUsers(this.props.currentPage,this.props.pageSize).then(response => {
+        usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then(data => {
             this.props.toogleIsFetching(false)
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);
+            this.props.setUsers(data.items);
+            this.props.setTotalUsersCount(data.totalCount);
         })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.toogleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        getUsers(pageNumber,this.props.pageSize).then(response => {
+        usersAPI.getUsers(pageNumber,this.props.pageSize).then(data => {
             this.props.toogleIsFetching(false)
-            this.props.setUsers(response.data.items);
+            this.props.setUsers(data.items);
         })
     }
 
