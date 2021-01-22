@@ -1,3 +1,7 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+import {AppStateType} from "./redux-store";
+
 type PhotoType = {
     small: string
     large: string
@@ -99,21 +103,21 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
 }
 
 export type UsersActionsTypes =
-    ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+    ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toogleIsFetching>
     | ReturnType<typeof toogleFollowingProgress>
 
-export const follow = (userId: number) => {
+export const followSuccess = (userId: number) => {
     return {
         type: 'FOLLOW',
         userId
     } as const
 }
-export const unfollow = (userId: number) => {
+export const unfollowSuccess = (userId: number) => {
     return {
         type: 'UNFOLLOW',
         userId
@@ -149,4 +153,52 @@ export const toogleFollowingProgress = (isFetching: boolean, userId: number) => 
         isFetching,
         userId
     } as const
+}
+
+export const getUsersTC = (currentPage: number,pageSize: number) => {
+    return (dispatch: Dispatch<UsersActionsTypes>) => {
+        dispatch(toogleIsFetching(true))
+        usersAPI.getUsers(currentPage,pageSize).then(data => {
+            dispatch(toogleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
+
+export const changePageTC = (pageNumber: number,pageSize: number) => {
+    return (dispatch: Dispatch<UsersActionsTypes>) => {
+        dispatch(toogleIsFetching(true))
+        dispatch(setCurrentPage(pageNumber))
+        usersAPI.getUsers(pageNumber, pageSize).then(data => {
+            dispatch(toogleIsFetching(false))
+            dispatch(setUsers(data.items))
+        })
+    }
+}
+
+export const followTC = (id: number) => {
+    return (dispatch: Dispatch<UsersActionsTypes>) => {
+        dispatch(toogleFollowingProgress(true, id))
+        usersAPI.follow(id)
+            .then(resultCode => {
+                if (resultCode === 0) {
+                    dispatch(followSuccess(id))
+                    dispatch(toogleFollowingProgress(false, id))
+                }
+            })
+    }
+}
+
+export const unfollowTC = (id: number) => {
+    return (dispatch: Dispatch<UsersActionsTypes>) => {
+        dispatch(toogleFollowingProgress(true, id))
+        usersAPI.unfollow(id)
+            .then(resultCode => {
+                if (resultCode === 0) {
+                    dispatch(unfollowSuccess(id))
+                    dispatch(toogleFollowingProgress(false, id))
+                }
+            })
+    }
 }
