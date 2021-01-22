@@ -1,6 +1,5 @@
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
-import {AppStateType} from "./redux-store";
 
 type PhotoType = {
     small: string
@@ -155,10 +154,10 @@ export const toogleFollowingProgress = (isFetching: boolean, userId: number) => 
     } as const
 }
 
-export const getUsersTC = (currentPage: number,pageSize: number) => {
+export const getUsersTC = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch<UsersActionsTypes>) => {
         dispatch(toogleIsFetching(true))
-        usersAPI.getUsers(currentPage,pageSize).then(data => {
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(toogleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
@@ -166,7 +165,7 @@ export const getUsersTC = (currentPage: number,pageSize: number) => {
     }
 }
 
-export const changePageTC = (pageNumber: number,pageSize: number) => {
+export const changePageTC = (pageNumber: number, pageSize: number) => {
     return (dispatch: Dispatch<UsersActionsTypes>) => {
         dispatch(toogleIsFetching(true))
         dispatch(setCurrentPage(pageNumber))

@@ -1,28 +1,6 @@
 import {v1} from "uuid";
-
-export const addPostAC = () => {
-    return {
-        type: "ADD-POST"
-    } as const
-}
-
-export const changeNewPostTextAC = (newPostText: string) => {
-    return {
-        type: "CHANGE-NEW-POST-TEXT",
-        newPostText: newPostText
-    } as const
-}
-
-export const setUserProfile = (profile: any) => {
-    return {
-        type: "SET-USER-PROFILE",
-        profile: profile
-    } as const
-}
-
-
-export type ProfileActionsTypes = ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewPostTextAC> | ReturnType<typeof setUserProfile>
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 type PostType = {
     id: string
@@ -95,3 +73,23 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
             return state
     }
 }
+
+export type ProfileActionsTypes = ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewPostTextAC> | ReturnType<typeof setUserProfile>
+export const addPostAC = () => ({type: "ADD-POST"} as const)
+
+export const changeNewPostTextAC = (newPostText: string) => ({
+    type: "CHANGE-NEW-POST-TEXT",
+    newPostText: newPostText
+} as const)
+
+const setUserProfile = (profile: ProfileType) => ({type: "SET-USER-PROFILE", profile: profile} as const)
+
+export const getUserProfileTC = (userId: string) => {
+    return (dispatch: Dispatch<ProfileActionsTypes>) => {
+        usersAPI.getProfile(userId).then(data => {
+            dispatch(setUserProfile(data))
+        })
+    }
+}
+

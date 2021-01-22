@@ -15,8 +15,8 @@ type UsersPropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
-    getUsersTC: (currentPage: number, pageSize: number ) => void
-    changePageTC: (pageNumber: number, pageSize: number ) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
+    changePageTC: (pageNumber: number, pageSize: number) => void
     followTC: (userId: number) => void
     unfollowTC: (userId: number) => void
 
@@ -61,5 +61,5 @@ let mapStateToProps = (state: AppStateType) => {
 }
 
 export default connect(mapStateToProps,
-    {getUsersTC,changePageTC, followTC, unfollowTC})
+    {getUsersTC, changePageTC, followTC, unfollowTC})
 (UsersContainer)
