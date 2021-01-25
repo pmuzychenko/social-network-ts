@@ -7,6 +7,7 @@ import {
 } from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirectComponent";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -60,6 +61,6 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps,
+export default withAuthRedirect(connect(mapStateToProps,
     {getUsersTC, changePageTC, followTC, unfollowTC})
-(UsersContainer)
+(UsersContainer))

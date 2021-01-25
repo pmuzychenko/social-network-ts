@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from "react";
 import styles from "./Dialogs.module.css";
-import {NavLink} from "react-router-dom";
+import {NavLink,Redirect} from "react-router-dom";
 
 
 type DialogPropsType = {
@@ -40,6 +40,7 @@ type DialogsPagePropsType = {
     newDialogMessage: string
     addMessage: () => void
     changeMessage: (message: string) => void
+    isAuth: boolean
 
 }
 
@@ -59,6 +60,8 @@ export const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
         props.changeMessage(e.currentTarget.value)
     }
 
+
+    if (!props.isAuth) return <Redirect to={"/login"} />
 
     return (
         <div className={styles.dialogs}>
