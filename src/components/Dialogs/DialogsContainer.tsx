@@ -19,8 +19,5 @@ let MapDispatchToProps = (dispatch: any) => {
         changeMessage: (message: string) => {dispatch(changeNewMessageAC(message))}
     }
 }
-//let AuthRedirectComponent = withAuthRedirect(Dialogs)
-
-//export const DialogsContainer = connect(mapStateToProps, MapDispatchToProps)(AuthRedirectComponent)
 
 export const DialogsContainer = compose<React.ComponentType>(connect(mapStateToProps, MapDispatchToProps), withAuthRedirect)(Dialogs)
