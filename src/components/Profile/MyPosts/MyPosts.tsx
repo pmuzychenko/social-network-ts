@@ -35,8 +35,7 @@ export const MyPosts: React.FC<PropsType> = (props) => {
             <div>
                 <div>
                     <textarea value={props.messageForNewPost}
-                              onChange={onPostChange}>
-                    </textarea>
+                              onChange={onPostChange}/>
                 </div>
                 <div>
                     <button onClick={onAddPost}>Add post</button>
